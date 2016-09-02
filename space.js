@@ -54,7 +54,7 @@ function Ship(x, y){
 }
 
 function overlap(s, b){
-    return Math.sqrt( (s.loc.x - b.x) * (s.loc.x - b.x) + (s.loc.y - b.y) * (s.loc.y - b.y) ) < ( s.rad + BALL_RAD);
+    return Math.sqrt( (s.loc.x - b.x) * (s.loc.x - b.x) + (s.loc.y - b.y) * (s.loc.y - b.y) ) < (s.rad + BALL_RAD);
 }
 
 function setup(){
@@ -75,7 +75,7 @@ function draw(){
     if (mouseIsPressed && ! pressed){
         var x = mouseX;
         var y = mouseY;
-        if (! overlap(ship, createVector(x, y) && mouseX > 0 && mouseY > 0 && mouseX < VIEW_WIDTH && mouseY < VIEW_HEIGHT)){
+        if ( (! overlap(ship, {x:x, y:y})) && mouseX > 0 && mouseY > 0 && mouseX < VIEW_WIDTH && mouseY < VIEW_HEIGHT ){
             acc.x = mouseX;
             acc.y = mouseY;
             acc.sub(ship.loc);
