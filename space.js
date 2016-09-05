@@ -68,8 +68,8 @@ function overlaps(o, os){
 function addBall(){
     var x = Math.floor(Math.random() * WORLD_WIDTH) + BALL_RAD;
     var y = Math.floor(Math.random() * WORLD_HEIGHT) + BALL_RAD;
-    constrain(x, BALL_RAD, WORLD_WIDTH - BALL_RAD);
-    constrain(y, BALL_RAD, WORLD_HEIGHT - BALL_RAD);
+    x = constrain(x, BALL_RAD, WORLD_WIDTH - BALL_RAD);
+    y = constrain(y, BALL_RAD, WORLD_HEIGHT - BALL_RAD);
     balls.push(createVector(x, y));
 }
 
@@ -82,22 +82,22 @@ function reset(){
     for (var i = 0; i < 20; i++){
         var x = Math.floor(Math.random() * WORLD_WIDTH - ship.rad) + BALL_RAD;
         var y = Math.floor(Math.random() * WORLD_HEIGHT - ship.rad) + BALL_RAD;
-        constrain(x, BALL_RAD, WORLD_WIDTH - BALL_RAD);
-        constrain(y, BALL_RAD, WORLD_HEIGHT - BALL_RAD);
+        x = constrain(x, BALL_RAD, WORLD_WIDTH - BALL_RAD);
+        y = constrain(y, BALL_RAD, WORLD_HEIGHT - BALL_RAD);
         balls.push(createVector(x, y));
     }
     
     for (var i = 0; i < 3; i++){
         var x = Math.floor(Math.random() * WORLD_WIDTH - ship.rad) + BALL_RAD;
         var y = Math.floor(Math.random() * WORLD_HEIGHT - ship.rad) + BALL_RAD;
-        constrain(x, BALL_RAD, WORLD_WIDTH - BALL_RAD);
-        constrain(y, BALL_RAD, WORLD_HEIGHT - BALL_RAD);        
+        x = constrain(x, BALL_RAD, WORLD_WIDTH - BALL_RAD);
+        x = constrain(y, BALL_RAD, WORLD_HEIGHT - BALL_RAD);        
         
         while (overlaps({x:x, y:y}, balls) || overlapShip(ship, {x:x, y:y})){
             x = Math.floor(Math.random() * WORLD_WIDTH - ship.rad) + BALL_RAD;
             y = Math.floor(Math.random() * WORLD_HEIGHT - ship.rad) + BALL_RAD;
-            constrain(x, BALL_RAD, WORLD_WIDTH - BALL_RAD);
-            constrain(y, BALL_RAD, WORLD_HEIGHT - BALL_RAD);
+            x = constrain(x, BALL_RAD, WORLD_WIDTH - BALL_RAD);
+            y = constrain(y, BALL_RAD, WORLD_HEIGHT - BALL_RAD);
         }
         bombs.push(createVector(x, y));
     }
