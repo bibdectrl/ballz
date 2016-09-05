@@ -48,6 +48,34 @@ function Ship(x, y){
     }
 }
 
+function Bomb(x, y){
+    this.loc = createVector(x, y);
+    this.acc = createVector(random(-1, 1), random(-1, 1));
+    this.update = function(){
+        this.loc.add(this.acc);
+        if (this.loc.x < BALL_RAD || this.loc.x > WORLD_WIDTH - BALL_RAD) { 
+            addBall();
+            this.acc.x *= -1;
+            if (this.loc.x < BALL_RAD) {
+                this.loc.x = BALL_RAD;
+            } else (this.loc.x = WORLD_WIDTH - BALL_RAD);
+        }
+        if (this.loc.y < BALL_RAD || this.loc.y > WORLD_HEIGHT - BALL_RAD) { 
+            this.acc.y *= -1; 
+            addBall();
+            if (this.loc.y < BALL_RAD) {
+                this.loc.y = BALL_RAD;
+            } else (this.loc.y = WORLD_HEIGHT - BALL_RAD);
+        }
+    }
+    this.draw = function(){
+        fill(255, 0, 0);
+        ellipse(this.loc.x, this.loc.y, BALL_RAD*2, BALL_RAD*2);
+    }
+}
+
+
+
 function overlap(s, b){
     return Math.sqrt( (s.x - b.x) * (s.x - b.x) + (s.y - b.y) * (s.y - b.y) ) < (BALL_RAD + BALL_RAD);
 }
@@ -99,7 +127,7 @@ function reset(){
             x = constrain(x, BALL_RAD, WORLD_WIDTH - BALL_RAD);
             y = constrain(y, BALL_RAD, WORLD_HEIGHT - BALL_RAD);
         }
-        bombs.push(createVector(x, y));
+        bombs.push(new Bomb(x, y));
     }
     
     pressed = false;
@@ -149,8 +177,7 @@ function draw(){
         }
         
         for (var i = 0; i < bombs.length; i++){
-            fill(255, 0, 0);
-            ellipse(bombs[i].x, bombs[i].y, 10, 10);
+            bombs[i].draw();
         }
         
         ship.draw();
@@ -163,7 +190,8 @@ function draw(){
         }
         
         for (var i = bombs.length - 1; i >= 0; i--){
-            if (overlapShip(ship, bombs[i])){
+            bombs[i].update();
+            if (overlapShip(ship, bombs[i].loc)){
                 bombs.splice(i, 1);
                 lose = true;
             }
