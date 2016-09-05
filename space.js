@@ -35,13 +35,15 @@ function Ship(x, y){
     this.update = function(){
         this.loc.add(this.acc);
         if (this.loc.x < this.rad || this.loc.x > WORLD_WIDTH - this.rad) { 
-            this.acc.x *= -1; 
+            this.acc.x *= -1;
+            addBall();
             if (this.loc.x < this.rad) {
                 this.loc.x = this.rad;
             } else (this.loc.x = WORLD_WIDTH - this.rad);
         }
         if (this.loc.y < this.rad || this.loc.y > WORLD_HEIGHT - this.rad) { 
             this.acc.y *= -1; 
+            addBall();
             if (this.loc.y < this.rad) {
                 this.loc.y = this.rad;
             } else (this.loc.y = WORLD_HEIGHT - this.rad);
@@ -51,6 +53,14 @@ function Ship(x, y){
         fill(0, 0, 0);
         ellipse(this.loc.x, this.loc.y, this.rad*2, this.rad*2);
     }
+}
+
+function addBall(){
+    var x = Math.floor(Math.random() * WORLD_WIDTH) + BALL_RAD;
+    var y = Math.floor(Math.random() * WORLD_HEIGHT) + BALL_RAD;
+    constrain(x, BALL_RAD, WORLD_WIDTH - BALL_RAD);
+    constrain(y, BALL_RAD, WORLD_HEIGHT - BALL_RAD);
+    balls.push(createVector(x, y));
 }
 
 function overlap(s, b){
