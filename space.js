@@ -201,6 +201,7 @@ function draw(){
             win = true;
         }
         textSize(12);
-        text(`Remaining: ${balls.length}`, 10, 20);
+        textAlign(LEFT);
+        text(`Remaining: ${balls.length}`, 20, 20);
     }
 }
